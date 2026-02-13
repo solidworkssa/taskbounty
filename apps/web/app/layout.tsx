@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'TaskBounty - Bounty Board',
-  description: 'Post and claim task bounties on Base and Stacks',
+  title: 'TaskBounty',
+  description: 'Decentralized task marketplace',
 }
 
 export default function RootLayout({
