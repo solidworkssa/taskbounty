@@ -2,8 +2,11 @@
 pragma solidity ^0.8.20;
 
 /// @title TaskBounty Contract
+/// @author solidworkssa
 /// @notice Decentralized task marketplace with crypto bounties.
 contract TaskBounty {
+    string public constant VERSION = "1.0.0";
+
 
     struct Bounty {
         address issuer;
