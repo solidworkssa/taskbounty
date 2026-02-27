@@ -29,9 +29,9 @@
 
 (define-public (create-bounty (amount uint))
     (let ((id (var-get bounty-nonce)))
-        (try! (stx-transfer? amount tx-sender (as-contract tx-sender)))
+        (try! (stx-transfer? amount contract-caller (as-contract contract-caller)))
         (map-set bounties id {
-            issuer: tx-sender,
+            issuer: contract-caller,
             amount: amount,
             claimed: false,
             claimant: none
@@ -43,9 +43,9 @@
 
 (define-public (claim-bounty (id uint) (claimant principal))
     (let ((b (unwrap! (map-get? bounties id) (err u404))))
-        (asserts! (is-eq tx-sender (get issuer b)) (err u401))
+        (asserts! (is-eq contract-caller (get issuer b)) (err u401))
         (asserts! (not (get claimed b)) (err u403))
-        (try! (as-contract (stx-transfer? (get amount b) tx-sender claimant)))
+        (try! (as-contract (stx-transfer? (get amount b) contract-caller claimant)))
         (map-set bounties id (merge b {claimed: true, claimant: (some claimant)}))
         (ok true)
     )
